@@ -3,3 +3,4 @@
 # Period 6
 # duration
 
+import pygame
