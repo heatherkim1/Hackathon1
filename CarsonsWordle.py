@@ -24,54 +24,31 @@ sleep(spacing)
 BeginInput = input("Are you ready to begin? (Y/N) (not case sensitive)").upper().strip()
 
 while True:
+    #beginning inputs
     if BeginInput == "Y":
-        #get language
-        def language():
-
-            language = input("What language would you like to use? (English/Spanish) (not case sensitive)").lower().strip()
-            #Language selection, about to call for language file.
-            if language == "english":
-                print("You have selected english!")
-                #opening english file
-                print("opening english file..")
-                with open("WordleWords.txt", "r") as file:
-                    sleep(1)
-                    allText = file.read()
-                    words = list(map(str, allText.split()))
-                    print("english file opened!")
-                    wordle = random.choice(words)
-
-                #spacing lets me see easier.
-
-            elif language == "spanish":
-                #opening spanish file
-                print("¡Has seleccionado español!")
-                print("abriendo archivo en español..")
-                with open("WordleWordsSpanish.txt", "r") as file:
-                    sleep(1)
-                    allText = file.read()
-                    words = list(map(str, allText.split()))
-                    print("¡Archivo en español abierto!")
-                    wordle = random.choice(words)
-            #if they dont pick either, reask
+        print("Great! Let's get started!")
+        sleep(spacing)
+        language = input("Please select a language (English/Spanish) (not case sensitive)").upper().strip()
+        if language == "ENGLISH":
+            #ENGLISH PICKING!!
+            print("You have chosen english!")
+            sleep(spacing)
+            #beginning word selection process
+            with open("WordleWords.txt", "r") as file:
+                alltext = file.read()
+                words = list(map(str, alltext.split()))
+                #picking random word
+                word = random.choice(words)
 
 
 
-            else:
-                print("Please pick either english or spanish!")
-                sleep(2)
-                language()
-        language()
-        break
+
+
+            #beginning guessing process
     elif BeginInput == "N":
-        #ends
-        print("Okay, goodbye!")
-        sleep(2)
-        quit()
-
-
+        print("No worries, come back when you are ready!")
+        exit()
     else:
-        #if they dont pick either, reask
-        print("Please pick either Y or N!")
-        sleep(2)
+        print("Please enter a valid response (Y/N)")
         BeginInput = input("Are you ready to begin? (Y/N) (not case sensitive)").upper().strip()
+    
