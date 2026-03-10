@@ -32,16 +32,19 @@ while True:
             if language == "english":
                 print("You have selected english!")
                 #opening english file
+                print("opening english file..")
                 with open("WordleWords.txt", "r") as file:
                     allText = file.read()
                     words = list(map(str, allText.split()))
-                    print()
+                    print("english file opened!")
             elif language == "spanish":
                 #opening spanish file
                 print("¡Has seleccionado español!")
+                print("abriendo archivo en español..")
                 with open("WordleWordsSpanish.txt", "r") as file:
                     allText = file.read()
                     words = list(map(str, allText.split()))
+                    print("¡Archivo en español abierto!")
 
             else:
                 print("Please pick either english or spanish!")
