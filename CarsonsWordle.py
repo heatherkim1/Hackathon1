@@ -1,14 +1,15 @@
 #TO DO:
 #create guessing system
 #UI improvements
-#adjust timing
-#randomize words
-#Call spanish/english txt file
+#implement  retry feature
+#reveal word at end
+
 #------------------------------------------
-#importing QOL 
+#importing QOL imports (time, random, sleep)
 import random
 import time
 from time import sleep
+#spacing is simply for speeding up wait process.
 spacing = 0
 #beginning tutorial and welcoming, preparing file.
 print("Hello there! Welcome to wordle!")
@@ -34,17 +35,27 @@ while True:
                 #opening english file
                 print("opening english file..")
                 with open("WordleWords.txt", "r") as file:
+                    sleep(1)
                     allText = file.read()
                     words = list(map(str, allText.split()))
                     print("english file opened!")
+                    wordle = random.choice(words)
+
+                #spacing lets me see easier.
+
             elif language == "spanish":
                 #opening spanish file
                 print("¡Has seleccionado español!")
                 print("abriendo archivo en español..")
                 with open("WordleWordsSpanish.txt", "r") as file:
+                    sleep(1)
                     allText = file.read()
                     words = list(map(str, allText.split()))
                     print("¡Archivo en español abierto!")
+                    wordle = random.choice(words)
+            #if they dont pick either, reask
+
+
 
             else:
                 print("Please pick either english or spanish!")
@@ -53,10 +64,14 @@ while True:
         language()
         break
     elif BeginInput == "N":
+        #ends
         print("Okay, goodbye!")
         sleep(2)
         quit()
+
+
     else:
+        #if they dont pick either, reask
         print("Please pick either Y or N!")
         sleep(2)
         BeginInput = input("Are you ready to begin? (Y/N) (not case sensitive)").upper().strip()
