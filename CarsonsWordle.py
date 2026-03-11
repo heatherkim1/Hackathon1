@@ -1,3 +1,7 @@
+#Carson Everhart
+#Period 6
+#Python Group Project - Wordle
+#Time spent: 3 days
 
 #importing QOL imports (time, random, sleep)
 import random
