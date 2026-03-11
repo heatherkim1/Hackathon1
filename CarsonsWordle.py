@@ -78,7 +78,7 @@ while True:
         #checks if guess is correct, if not, checks each letter and gives feedback.
         if wordle == guess:
             print("Congratulations! You guessed the word correctly!")
-            break
+            exit()
         check_place(guess[0], wordle[0], "First")
         if guess[0] == wordle[1] or guess[0] == wordle[2] or guess[0] == wordle[3] or guess[0] == wordle[4]:
             print("First letter: right letter, wrong place!")
@@ -101,8 +101,8 @@ while True:
         if guess != wordle:
             print("You have no more guesses, sadly the word was " + wordle + "!")
             sleep(spacing)
-            print("beter luck next time!")
-            break
+            print("better luck next time!")
+            exit()
 
 
     
