@@ -8,6 +8,12 @@
 import time, random
 
 def tictactoe ():
+    global gameplayed, xorecords
+    
+    xorecords = open("XORecords", "a")
+    xorecords.close
+    
+    print("Welcome to Tic Tac Toe! You will be playing against a computer whose choices are completely randomized.")
     play_tictactoe = True
     while True:
         resetgame()
@@ -16,13 +22,16 @@ def tictactoe ():
             break
 
 def round(): 
+    print("Welcome to a new round!")
     user_turn()
     determine_winner()
     computer_turn()
     determine_winner()
 
 def resetgame():
-    global user_move, available_moves,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3,play_tictactoe,winner
+    global user_move, available_moves,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3,play_tictactoe,winner, gameplayed
+    
+    gameplayed += 1
     r1c1 = '[ ]'
     r1c2 = '[ ]'
     r1c3 = '[ ]'
@@ -80,7 +89,7 @@ def computer_turn():
     print(f'{r1c1}{r1c2}{r1c3}\n{r2c1}{r2c2}{r2c3}\n{r3c1}{r3c2}{r3c3}')
 
 def determine_winner():
-    global computer_moves,user_move, available_moves,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3,play_tictactoe,winner
+    global computer_moves,user_move, available_moves,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3,play_tictactoe,winner, gameplayed, xorecords
     if r1c1 == "[O]" and r1c2 == "[O]" and r1c3 == "[O]": # Top row
         winner = "User"
     elif r1c1 == "[X]" and r1c2 == "[X]" and r1c3 == "[X]":
@@ -123,10 +132,23 @@ def determine_winner():
 
     if winner == "User" or winner == "Computer":
         print(f"\n**********{winner} won!**********")
+        xorecords = open("XORecords", "a")
+        
+        xorecords.write(f"Game #: {gameplayed}\n Winner: {winner}")
+
+        xorecords.close
+       
         return
     if available_moves == [] and winner == None:
         winner = "Tie"
         print(f"\n**********It's a tie!**********")
+        xorecords = open("XORecords", "a")
+        
+        xorecords.write(f"Game #: {gameplayed}\n Winner: {winner}")
+
+        xorecords.close
+
         return
 
+gameplayed = 0
 tictactoe()
