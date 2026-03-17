@@ -42,7 +42,7 @@ while True:
         print("You have chosen english!")
         sleep(spacing)
         #beginning word selection process
-        with open("WordleWords.txt", "r") as file:
+        with open("CarsonsWordleGame/WordleWords.txt", "r") as file:
             alltext = file.read()
             words = list(map(str, alltext.split()))
             #picking random word
@@ -54,7 +54,7 @@ while True:
         #spanish word selection process
         print("¡Has elegido español!")
         sleep(spacing)
-        with open("WordleWordsSpanish.txt", "r") as file:
+        with open("CarsonsWordleGame/WordleWordsSpanish.txt", "r") as file:
             alltext = file.read()
             words = list(map(str, alltext.split()))
             #picking random word
@@ -81,8 +81,8 @@ while True:
         #checks if guess is correct, if not, checks each letter and gives feedback.
         if wordle == guess:
             print("Congratulations! You guessed the word correctly!")
-            with open("WordlePlayLogs.txt", "a") as file:
-                file.write((name + " guessed the word " + wordle + " in " + str(i + 1) + " guesses! \n"))
+            with open("CarsonsWordleGame/WordlePlayLogs.txt", "a") as file:
+                file.write((name + " guessed the word " + wordle + " in " + str(i + 1) + " guesses! in " + language + " \n"))
             file.close()
             exit()
         if not any(letter in wordle for letter in guess):
@@ -118,8 +118,8 @@ while True:
         print("You have no more guesses, sadly the word was " + wordle + "!")
         sleep(spacing)
         print("better luck next time!")
-        with open("WordlePlayLogs.txt", "a") as falsefile:
-            falsefile.write((name + " failed to guess the word " + wordle + " in 6 guesses! \n"))
+        with open("CarsonsWordleGame/WordlePlayLogs.txt", "a") as falsefile:
+            falsefile.write((name + " failed to guess the word " + wordle + " in 6 guesses! in" + language + " \n"))
         falsefile.close()
         exit()
 
