@@ -12,7 +12,8 @@ spacing = 2
 #beginning tutorial and welcoming, preparing file.
 print("Hello there! Welcome to wordle!")
 sleep(spacing)
-print("There will be a random 5 letter word you have to guess!")
+name = input("What is your name?")
+print("Alrighty " + name + "! There will be a random 5 letter word you have to guess!")
 sleep(spacing)
 print("Please make sure to guess when told to! we will tell you which letters are correct, incorrect, or in the wrong place.")
 sleep(spacing + 1)
@@ -80,6 +81,9 @@ while True:
         #checks if guess is correct, if not, checks each letter and gives feedback.
         if wordle == guess:
             print("Congratulations! You guessed the word correctly!")
+            with open("WordlePlayLogs.txt", "a") as file:
+                file.write((name + " guessed the word " + wordle + " in " + str(i + 1) + " guesses! \n"))
+            file.close()
             exit()
         if not any(letter in wordle for letter in guess):
             print("Nothing matches!")
@@ -114,6 +118,9 @@ while True:
         print("You have no more guesses, sadly the word was " + wordle + "!")
         sleep(spacing)
         print("better luck next time!")
+        with open("WordlePlayLogs.txt", "a") as falsefile:
+            falsefile.write((name + " failed to guess the word " + wordle + " in 6 guesses! \n"))
+        falsefile.close()
         exit()
 
 
