@@ -3,7 +3,7 @@
 # Period 6
 # duration
 
-
+xorecords = open("XORecords", "a")
 
 import time, random
 
