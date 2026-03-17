@@ -3,14 +3,14 @@
 # Period 6
 # duration
 
-xorecords = open("XORecords", "a")
+
 
 import time, random
 
 def tictactoe ():
     global gameplayed, xorecords
     
-    xorecords = open("XORecords", "a")
+    xorecords = open("XORecords.txt", "a")
     xorecords.close
     
     print("Welcome to Tic Tac Toe! You will be playing against a computer whose choices are completely randomized.")
@@ -132,7 +132,7 @@ def determine_winner():
 
     if winner == "User" or winner == "Computer":
         print(f"\n**********{winner} won!**********")
-        xorecords = open("XORecords", "a")
+        xorecords = open("XORecords.txt", "a")
         
         xorecords.write(f"Game #: {gameplayed}\n Winner: {winner}")
 
@@ -142,7 +142,7 @@ def determine_winner():
     if available_moves == [] and winner == None:
         winner = "Tie"
         print(f"\n**********It's a tie!**********")
-        xorecords = open("XORecords", "a")
+        xorecords = open("XORecords.txt", "a")
         
         xorecords.write(f"Game #: {gameplayed}\n Winner: {winner}")
 
