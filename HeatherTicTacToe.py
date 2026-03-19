@@ -4,10 +4,10 @@
 # 150 minutes
 
 import random, time
-xorecords = open("XORecords.txt", "a") # Creates the file that will be read by the UI
+rec = open('XORecords.txt','a') # Creates the file that will be read by the UI
 
 def resetgame():
-    global user_move, available_moves,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3, winner, playtictactoe, gameplayed, xorecords
+    global user_move, available_moves,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3, winner, playtictactoe, gameplayed, rec
     r1c1 = '[ ]' # Clears all the variables to create a new board
     r1c2 = '[ ]'
     r1c3 = '[ ]'
@@ -64,7 +64,7 @@ def computer_turn():
     print(f'{r1c1}{r1c2}{r1c3}\n{r2c1}{r2c2}{r2c3}\n{r3c1}{r3c2}{r3c3}')
 
 def determine_winner():
-    global winner, r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3,winner, playtictactoe,gameplayed, xorecords
+    global winner, r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3,winner, playtictactoe,gameplayed, rec
     if r1c1 == "[O]" and r1c2 == "[O]" and r1c3 == "[O]": # Top row
         winner = "User"
     elif r1c1 == "[X]" and r1c2 == "[X]" and r1c3 == "[X]":
@@ -107,18 +107,17 @@ def determine_winner():
 
     if winner == "User" or winner == "Computer":
         print(f"\n**********{winner} won!**********")
-        xorecords = open("XORecords.txt", "a")
-        
-        xorecords.write(f"Game #: {gameplayed}\n Winner: {winner}\n")
+        with open('XORecords.txt','a') as rec, open('FullHistory.txt','a') as full_his:
+            rec.write(f"Game #: {gameplayed}\n Winner: {winner}\n")
+            full_his.write(f"Game: Tic Tac Toe\nGame #: {gameplayed}\nWinner: {winner}\n")
 
-        xorecords.close()
+        
     if available_moves == [] and winner == None:
         print(f"\n**********It's a tie!**********")
-        xorecords = open("XORecords.txt", "a")
-        
-        xorecords.write(f"Game #: {gameplayed}\n Winner: {winner}\n")
-
-        xorecords.close()
+        with open('XORecords.txt','a') as rec:
+            rec.write(f"Game #: {gameplayed}\n Winner: {winner}\n")
+            full_his.write(f"Game: Tic Tac Toe\nGame #: {gameplayed}\nWinner: {winner}\n")
+       
 
 def round():
     global winner, playtictactoe
@@ -145,8 +144,7 @@ def round():
                     return
                 if playtictactoe == "cont": return
         
-xorecords = open("XORecords.txt", "a")
-xorecords.close
+
 gameplayed = 0
 print("Welcome to Tic Tac Toe! You start first. ")
 playtictactoe = "cont"
