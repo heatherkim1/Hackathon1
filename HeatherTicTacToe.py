@@ -129,7 +129,7 @@ def round():
         determine_winner()
         if winner:
             while playtictactoe not in ["cont", "menu"]:
-                playtictactoe = input("Enter 'cont' to play another round or 'menu' to go back to the home screen: ").strip().lower()
+                playtictactoe = input("Enter 'cont' to play another round or 'menu' to go back to the home screen: ").strip().lower() # Asks the user if they would like to play again or return to the menu
                 if playtictactoe == "menu": 
                     playtictactoe = None # Ends the loop 
                     return
@@ -138,7 +138,7 @@ def round():
         determine_winner()
         if winner:
             while playtictactoe not in ["cont", "menu"]:
-                playtictactoe = input("Enter 'cont' to play another round or 'menu' to go back to the home screen: ").strip().lower()
+                playtictactoe = input("Enter 'cont' to play another round or 'menu' to go back to the home screen: ").strip().lower() # Asks the user if they would like to play again or return to the menu 
                 if playtictactoe == "menu": 
                     playtictactoe = None # Ends the loop 
                     return
