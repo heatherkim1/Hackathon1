@@ -1,38 +1,14 @@
-# Heather Kim
+# Heather Kim 
+# Period 6 
 # Tic Tac Toe
-# Period 6
-# duration
+# 150 minutes
 
-
-
-import time, random
-
-def tictactoe ():
-    global gameplayed, xorecords
-    
-    xorecords = open("XORecords.txt", "a")
-    xorecords.close
-    
-    print("Welcome to Tic Tac Toe! You will be playing against a computer whose choices are completely randomized.")
-    play_tictactoe = True
-    while True:
-        resetgame()
-        round()
-        if play_tictactoe == False: 
-            break
-
-def round(): 
-    print("Welcome to a new round!")
-    user_turn()
-    determine_winner()
-    computer_turn()
-    determine_winner()
+import random, time
+xorecords = open("XORecords.txt", "a") # Creates the file that will be read by the UI
 
 def resetgame():
-    global user_move, available_moves,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3,play_tictactoe,winner, gameplayed
-    
-    gameplayed += 1
-    r1c1 = '[ ]'
+    global user_move, available_moves,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3, winner, playtictactoe, gameplayed, xorecords
+    r1c1 = '[ ]' # Clears all the variables to create a new board
     r1c2 = '[ ]'
     r1c3 = '[ ]'
     r2c1 = '[ ]'
@@ -41,16 +17,15 @@ def resetgame():
     r3c1 = '[ ]'
     r3c2 = '[ ]'
     r3c3 = '[ ]'
+    gameplayed += 1 # Increases the counter that tracks the number of times the game was played
+    print(f'{r1c1}{r1c2}{r1c3}\n{r2c1}{r2c2}{r2c3}\n{r3c1}{r3c2}{r3c3}') # Prints the board
+    playtictactoe = "None" # Sets the variable to none 
 
-    print(f'{r1c1}{r1c2}{r1c3}\n{r2c1}{r2c2}{r2c3}\n{r3c1}{r3c2}{r3c3}')
-    
-    available_moves = ['r1c1','r1c2','r1c3','r2c1','r2c2','r2c3','r3c1','r3c2','r3c3']
-
-    winner = None
+    available_moves = ['r1c1','r1c2','r1c3','r2c1','r2c2','r2c3','r3c1','r3c2','r3c3'] # The list of all the moves available to the players
 
 def user_turn():
-    global user_move, available_moves,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3,play_tictactoe,winner
-    user_move = input("Choose a square (eg. r1c1, r1c2, r1c3): ")
+    global user_move, available_moves,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3, winner, playtictactoe
+    user_move = input("Choose a square (eg. r1c1, r1c2, r1c3): ") # Asks the user to 
 
     while user_move not in available_moves: 
         user_move = input("Invalid input or square already take, try again: ")
@@ -67,13 +42,13 @@ def user_turn():
 
     available_moves.remove(user_move)
 
+
     print(f'{r1c1}{r1c2}{r1c3}\n{r2c1}{r2c2}{r2c3}\n{r3c1}{r3c2}{r3c3}')
-
-
+    
 def computer_turn():
-    global computer_moves,user_move, available_moves,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3,play_tictactoe,winner
+    global user_move, available_moves,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3,winner,playtictactoe
     print("Computer's turn")
-    time.sleep(1)
+    time.sleep(2)
     computer_moves = random.choice(available_moves)
     if computer_moves == 'r1c1': r1c1 = '[X]'
     elif computer_moves == 'r1c2': r1c2 = '[X]'
@@ -89,7 +64,7 @@ def computer_turn():
     print(f'{r1c1}{r1c2}{r1c3}\n{r2c1}{r2c2}{r2c3}\n{r3c1}{r3c2}{r3c3}')
 
 def determine_winner():
-    global computer_moves,user_move, available_moves,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3,play_tictactoe,winner, gameplayed, xorecords
+    global winner, r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3,winner, playtictactoe,gameplayed, xorecords
     if r1c1 == "[O]" and r1c2 == "[O]" and r1c3 == "[O]": # Top row
         winner = "User"
     elif r1c1 == "[X]" and r1c2 == "[X]" and r1c3 == "[X]":
@@ -134,21 +109,48 @@ def determine_winner():
         print(f"\n**********{winner} won!**********")
         xorecords = open("XORecords.txt", "a")
         
-        xorecords.write(f"Game #: {gameplayed}\n Winner: {winner}")
+        xorecords.write(f"Game #: {gameplayed}\n Winner: {winner}\n")
 
-        xorecords.close
-       
-        return
+        xorecords.close()
     if available_moves == [] and winner == None:
-        winner = "Tie"
         print(f"\n**********It's a tie!**********")
         xorecords = open("XORecords.txt", "a")
         
-        xorecords.write(f"Game #: {gameplayed}\n Winner: {winner}")
+        xorecords.write(f"Game #: {gameplayed}\n Winner: {winner}\n")
 
-        xorecords.close
+        xorecords.close()
 
-        return
-
+def round():
+    global winner, playtictactoe
+    winner = None
+    playtictactoe = None
+    resetgame()
+    while winner == None: 
+        user_turn()
+        determine_winner()
+        if winner:
+            while playtictactoe not in ["cont", "menu"]:
+                playtictactoe = input("Enter 'cont' to play another round or 'menu' to go back to the home screen: ").strip().lower()
+                if playtictactoe == "menu": 
+                    playtictactoe = None
+                    return
+                if playtictactoe == "cont": return
+        computer_turn()
+        determine_winner()
+        if winner:
+            while playtictactoe not in ["cont", "menu"]:
+                playtictactoe = input("Enter 'cont' to play another round or 'menu' to go back to the home screen: ").strip().lower()
+                if playtictactoe == "menu": 
+                    playtictactoe = None
+                    return
+                if playtictactoe == "cont": return
+        
+xorecords = open("XORecords.txt", "a")
+xorecords.close
 gameplayed = 0
-tictactoe()
+print("Welcome to Tic Tac Toe! You start first. ")
+playtictactoe = "cont"
+while playtictactoe == "cont":
+    round()
+    if playtictactoe == "menu":
+        break
