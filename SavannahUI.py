@@ -21,10 +21,23 @@ if main_menu == 'View records':
 
 if main_menu == 'View game history':
     which_his = input('Would you like to view full history or single game history? (If you would like to view a single game please type the games name and history after.)')
-    if which_his == 'full history':
+    if which_his == 'Full history':
         with open('FullHistory.txt','r') as full_his:
             his_read = full_his.read()
             print(his_read)
+    if which_his == 'Bloons history':   
         with open('BloonsHistory.txt','r') as bloons_his:
             read_his = bloons_his.read()
+            print(read_his)
+    if which_his == 'Wordle history':
+        with open('WordleHistory.txt','r') as wordle_his:
+            read_his = wordle_his.read()
+            print(read_his)
+    if which_his == 'Connections history':
+        with open('ConnectionsHistory.txt','r') as connections_his:
+            read_his = connections_his.read()
+            print(read_his)
+    if which_his == 'Tic-Tac-Toe history':
+        with open('XOHistory.txt','r') as xo_his:
+            read_his = xo_his.read()
             print(read_his)
