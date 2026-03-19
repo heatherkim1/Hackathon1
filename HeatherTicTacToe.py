@@ -60,59 +60,59 @@ def computer_turn():
     elif computer_moves == 'r3c2': r3c2 = '[X]'
     elif computer_moves == 'r3c3': r3c3 = '[X]'
 
-    available_moves.remove(computer_moves) 
-    print(f'{r1c1}{r1c2}{r1c3}\n{r2c1}{r2c2}{r2c3}\n{r3c1}{r3c2}{r3c3}')
+    available_moves.remove(computer_moves) # Removes the square as a choice
+    print(f'{r1c1}{r1c2}{r1c3}\n{r2c1}{r2c2}{r2c3}\n{r3c1}{r3c2}{r3c3}') # Prints the updated board
 
 def determine_winner():
     global winner, r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3,winner, playtictactoe,gameplayed, rec
-    if r1c1 == "[O]" and r1c2 == "[O]" and r1c3 == "[O]": # Top row
-        winner = "User"
-    elif r1c1 == "[X]" and r1c2 == "[X]" and r1c3 == "[X]":
-        winner = "Computer"
+    if r1c1 == "[O]" and r1c2 == "[O]" and r1c3 == "[O]": # Checks if the first row is fully "O's"
+        winner = "User" 
+    elif r1c1 == "[X]" and r1c2 == "[X]" and r1c3 == "[X]": # Checks if the first row is fully "X's"
+        winner = "Computer" 
     
-    elif r2c1 == "[O]" and r2c2 == "[O]" and r2c3 == "[O]": # Second row
+    elif r2c1 == "[O]" and r2c2 == "[O]" and r2c3 == "[O]": # Checks if the second row is fully "O's
         winner = "User"
-    elif r2c1 == "[X]" and r2c2 == "[X]" and r2c3 == "[X]":
+    elif r2c1 == "[X]" and r2c2 == "[X]" and r2c3 == "[X]": # Checks if the second row is fully "X's"
         winner = "Computer"
 
-    elif r3c1 == "[O]" and r3c2 == "[O]" and r3c3 == "[O]": # Third row
+    elif r3c1 == "[O]" and r3c2 == "[O]" and r3c3 == "[O]": # Checks if the third row is fully "O's
         winner = "User"
-    elif r3c1 == "[X]" and r3c2 == "[X]" and r3c3 == "[X]":
+    elif r3c1 == "[X]" and r3c2 == "[X]" and r3c3 == "[X]": # Checks if the third row is fully "X's"
         winner = "Computer"
 
-    elif r1c1 == "[O]" and r2c1 == "[O]" and r3c1 == "[O]": # First column 
+    elif r1c1 == "[O]" and r2c1 == "[O]" and r3c1 == "[O]": # Checks if the first column is fully "O's"
         winner = "User"
-    elif r1c1 == "[X]" and r2c1 == "[X]" and r3c1 == "[X]":
+    elif r1c1 == "[X]" and r2c1 == "[X]" and r3c1 == "[X]": # Checks if the first column is fully "X's"
         winner = "Computer"
 
-    elif r1c2 == "[O]" and r2c2 == "[O]" and r3c2 == "[O]": # Second column 
+    elif r1c2 == "[O]" and r2c2 == "[O]" and r3c2 == "[O]": # Checks if the second column is fully "O's"
         winner = "User"
-    elif r1c2 == "[X]" and r2c2 == "[X]" and r3c2 == "[X]":
+    elif r1c2 == "[X]" and r2c2 == "[X]" and r3c2 == "[X]": # Checks if the second column is fully "X's"
         winner = "Computer"
 
-    elif r1c3 == "[O]" and r2c3 == "[O]" and r3c3 == "[O]": # Third column 
+    elif r1c3 == "[O]" and r2c3 == "[O]" and r3c3 == "[O]": # Checks if the third column is fully "O's"
         winner = "User"
-    elif r1c3 == "[X]" and r2c3 == "[X]" and r3c3 == "[X]":
+    elif r1c3 == "[X]" and r2c3 == "[X]" and r3c3 == "[X]": # Checks if the third column is fully "X's"
         winner = "Computer"
 
-    elif r1c1 == "[O]" and r2c2 == "[O]" and r3c3 == "[O]": # First diagonal
+    elif r1c1 == "[O]" and r2c2 == "[O]" and r3c3 == "[O]": # Checks if the first diagonal is fully "O's"
         winner = "User"
-    elif r1c1 == "[X]" and r2c2 == "[X]" and r3c3 == "[X]":
+    elif r1c1 == "[X]" and r2c2 == "[X]" and r3c3 == "[X]": # Checks if the first diagonal is fully "X's"
         winner = "Computer"
 
-    elif r3c1 == "[O]" and r2c2 == "[O]" and r1c3 == "[O]": # Second diagonal
+    elif r3c1 == "[O]" and r2c2 == "[O]" and r1c3 == "[O]": # Checks if the second diagonal is fully "O's"
         winner = "User"
-    elif r3c1 == "[X]" and r2c2 == "[X]" and r1c3 == "[X]":
+    elif r3c1 == "[X]" and r2c2 == "[X]" and r1c3 == "[X]": # Checks if the second diagonal is fully "X's"
         winner = "Computer"
 
-    if winner == "User" or winner == "Computer":
+    if winner == "User" or winner == "Computer": # Updates the records and ends the game if either the user or the computer won
         print(f"\n**********{winner} won!**********")
         with open('XORecords.txt','a') as rec, open('FullHistory.txt','a') as full_his:
             rec.write(f"Game #: {gameplayed}\n Winner: {winner}\n")
             full_his.write(f"Game: Tic Tac Toe\nGame #: {gameplayed}\nWinner: {winner}\n")
 
         
-    if available_moves == [] and winner == None:
+    if available_moves == [] and winner == None: # Updates the records and ends the game if there is a tie and no available moves
         print(f"\n**********It's a tie!**********")
         with open('XORecords.txt','a') as rec:
             rec.write(f"Game #: {gameplayed}\n Winner: {winner}\n")
@@ -121,9 +121,9 @@ def determine_winner():
 
 def round():
     global winner, playtictactoe
-    winner = None
+    winner = None 
     playtictactoe = None
-    resetgame()
+    resetgame() # Resets the rest of the variables
     while winner == None: 
         user_turn()
         determine_winner()
@@ -131,23 +131,23 @@ def round():
             while playtictactoe not in ["cont", "menu"]:
                 playtictactoe = input("Enter 'cont' to play another round or 'menu' to go back to the home screen: ").strip().lower()
                 if playtictactoe == "menu": 
-                    playtictactoe = None
+                    playtictactoe = None # Ends the loop 
                     return
-                if playtictactoe == "cont": return
+                if playtictactoe == "cont": return # Repeats the game
         computer_turn()
         determine_winner()
         if winner:
             while playtictactoe not in ["cont", "menu"]:
                 playtictactoe = input("Enter 'cont' to play another round or 'menu' to go back to the home screen: ").strip().lower()
                 if playtictactoe == "menu": 
-                    playtictactoe = None
+                    playtictactoe = None # Ends the loop 
                     return
-                if playtictactoe == "cont": return
+                if playtictactoe == "cont": return # Repeats the game
         
 
 gameplayed = 0
-print("Welcome to Tic Tac Toe! You start first. ")
-playtictactoe = "cont"
+print("Welcome to Tic Tac Toe! You start first. ") # Welcome message
+playtictactoe = "cont" # Loops the game until the user inputs that they would like to go to the menu
 while playtictactoe == "cont":
     round()
     if playtictactoe == "menu":
