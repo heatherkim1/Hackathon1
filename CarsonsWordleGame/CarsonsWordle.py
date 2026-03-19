@@ -84,6 +84,9 @@ while True:
             with open("CarsonsWordleGame/WordlePlayLogs.txt", "a") as file:
                 file.write((name + " guessed the word " + wordle + " in " + str(i + 1) + " guesses! in " + language + " \n"))
             file.close()
+            with open("FullHistory.txt", 'a') as file:
+                file.write('Wordle: ' + name + ' Won ' + language)
+            file.close()
             exit()
         if not any(letter in wordle for letter in guess):
             print("Nothing matches!")
@@ -121,6 +124,9 @@ while True:
         with open("CarsonsWordleGame/WordlePlayLogs.txt", "a") as falsefile:
             falsefile.write((name + " failed to guess the word " + wordle + " in 6 guesses! in" + language + " \n"))
         falsefile.close()
+        with open("FullHistory.txt", 'a') as file:
+            file.write('Wordle: ' + name + ' Lost ' + language)
+        file.close()
         exit()
 
 
