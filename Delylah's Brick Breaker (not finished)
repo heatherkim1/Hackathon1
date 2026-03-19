@@ -1,0 +1,114 @@
+# Delylah's Brick Breaker
+import pygame
+import random
+
+pygame.init()
+
+timer = pygame.time.Clock()
+fps = 60
+white = (255, 255, 255)
+black = (0, 0, 0)
+gray = (16, 16 ,16)
+red = (210, 4, 45)
+orange = (255, 195, 108)
+green = (119, 221, 119)
+blue = (65, 105, 225)
+purple = (120, 81, 169)
+player_speed = 9
+WIDTH = 900
+HEIGHT = 900
+player_x = 300
+player_direction = 0
+ball_x = WIDTH / 2
+ball_y = HEIGHT - 30
+ball_x_direction = 0
+ball_y_direction = 0
+ball_x_speed = 6
+ball_y_speed = 6
+'''board = [[5, 5, 5, 5, 5], [4, 4, 4, 4, 4], [3, 3, 3, 3, 3], [2, 2, 2, 2, 2], [1, 1, 1, 1, 1]]'''
+board = []
+create_new = True
+colors = [red, orange, green, blue, purple]
+screen = pygame.display.set_mode([WIDTH, HEIGHT])
+active = False
+score = 0
+
+font = pygame.font.Font('freesansbold.ttf', 30)
+
+def create_new_board():
+    board = []
+    rows = random.randint(4, 8)
+    for i in range(rows):
+        row []
+        for j in range(5):
+            row.append(random.randint(1, 5))
+        board.append(row)
+    return board
+
+def draw_board(board):
+    board_squares = []
+    row = len(board)
+    cols = len(board[0]) if rows > 0 else 1
+    block_width = WIDTH // cols
+    block_height = (HEIGHT // 3) // rows
+    for i in range(rows):
+        for j in range(cols):
+            if board[i][j] > 0:
+                rect_x = j * block_width
+                rect_y = i * block_height
+                pygame.draw.rect(screen, colors[(board[i][j]) - 1],
+                                 [rect_x, rect_y, block_width - 2, block_height - 2], 0, 3)
+                pygame.draw.rect(screen, gray, [rect_x, rect_y, block_width = 2, block_height - 2], 2, 3)
+                top = pygame.rect.Rect((rect_x, rect_y), (block_width, 1))
+                bot = pygame.rect.Rect((rect_x, rect_y + block_height - 2), (block_width, 1))
+                left = pygame.rect.Rect((rect_x, rect_y), (1, block_height))
+                right = pygame.rect.Rect((rect_x + block_width - 2, rect_y), (1, block_height))
+
+                board_squares.append([top, bot, left, right, (i, j)])
+    return board_squares
+
+def create_new_board():
+    board = []
+    rows = random.randint(5, 9)
+    for i in range(rows):
+        row = []
+        for j in range(15):
+            row.append(random.randint(1, 5))
+        board.append(row)
+    return board
+
+run = True
+while run:
+    screen.fill(gray)
+    timer.tick(fps)
+    if create_new:
+        board = create_new_board()
+        create_new = False
+    squares = draw_board(board)
+    player = pygame.draw.rect(screen, black, [player_x, HEIGHT - 30, 200, 25], 0, 3)
+    pygame.draw.rect(screen, white, [player_x + 5, HEIGHT - 28, 190, 21], 3, 3)
+    ball = pygame.draw.circle(screen, white, (ball_x, ball_y), 15)
+    pygame.draw.circle(screen, black, (ball_x, ball_y), 15, 3)
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+        if event.type == pygame.K_SPACE and not active:
+            active = True
+            ball_y_direction = -1
+            ball_x_direction = random.choice([-1, 1])
+            score = 0
+        if event.key == pygame.K_RIGHT and active:
+            player_direction = 1
+        if event.key == pygame.K_LEFT and active:
+            player_direction = -1
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_RIGHT:
+                player_direction = 0
+            if event.key == pygame.K_LEFT:
+                player_direction = 0
+
+    if ball_x <= 10 or ball_x >= WIDTH - 10:
+        ball_x_direction *= -1
+
+    
