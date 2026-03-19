@@ -25,12 +25,12 @@ def resetgame():
 
 def user_turn():
     global user_move, available_moves,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3, winner, playtictactoe
-    user_move = input("Choose a square (eg. r1c1, r1c2, r1c3): ") # Asks the user to 
+    user_move = input("Choose a square (eg. r1c1, r1c2, r1c3): ") # Asks the user to choose a square
 
-    while user_move not in available_moves: 
-        user_move = input("Invalid input or square already take, try again: ")
+    while user_move not in available_moves: # Continues to ask until the input is valid
+        user_move = input("Invalid input or square already take, try again: ") 
 
-    if user_move == 'r1c1': r1c1 = '[O]'
+    if user_move == 'r1c1': r1c1 = '[O]' # Places an "O" to the square the user chose
     elif user_move == 'r1c2': r1c2 = '[O]'
     elif user_move == 'r1c3': r1c3 = '[O]'
     elif user_move == 'r2c1': r2c1 = '[O]'
@@ -40,16 +40,16 @@ def user_turn():
     elif user_move == 'r3c2': r3c2 = '[O]'
     elif user_move == 'r3c3': r3c3 = '[O]'
 
-    available_moves.remove(user_move)
+    available_moves.remove(user_move) # Removes the square as a choice
 
 
-    print(f'{r1c1}{r1c2}{r1c3}\n{r2c1}{r2c2}{r2c3}\n{r3c1}{r3c2}{r3c3}')
+    print(f'{r1c1}{r1c2}{r1c3}\n{r2c1}{r2c2}{r2c3}\n{r3c1}{r3c2}{r3c3}') # Prints the updated board
     
 def computer_turn():
     global user_move, available_moves,r1c1,r1c2,r1c3,r2c1,r2c2,r2c3,r3c1,r3c2,r3c3,winner,playtictactoe
     print("Computer's turn")
-    time.sleep(2)
-    computer_moves = random.choice(available_moves)
+    time.sleep(2) # Dramatic pause
+    computer_moves = random.choice(available_moves) # The computer randomly chooses a move from the available list of moves
     if computer_moves == 'r1c1': r1c1 = '[X]'
     elif computer_moves == 'r1c2': r1c2 = '[X]'
     elif computer_moves == 'r1c3': r1c3 = '[X]'
@@ -60,7 +60,7 @@ def computer_turn():
     elif computer_moves == 'r3c2': r3c2 = '[X]'
     elif computer_moves == 'r3c3': r3c3 = '[X]'
 
-    available_moves.remove(computer_moves)
+    available_moves.remove(computer_moves) 
     print(f'{r1c1}{r1c2}{r1c3}\n{r2c1}{r2c2}{r2c3}\n{r3c1}{r3c2}{r3c3}')
 
 def determine_winner():
