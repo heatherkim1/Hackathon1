@@ -117,12 +117,10 @@ def lobby():
     print("Instructions: \n1. In order to clear a level, you must group the words that share the same topic\n2. If a player enters an incorrect group of words four times, the game ends\n3.If all 4 rows are matched, the player wins ")
     time.sleep(2)
     #displays rules and title, with timed intervals before printing
-    begin = input("B: Begin, M: Menu, S: Stats\n>> ").lower() 
+    begin = input("B: Begin, S: Stats\n>> ").lower() 
     if begin == "b":
         loading()
         connections()
-    elif begin == "m":
-        loading()
     elif begin == "s":
         clear()
         print(f"Score: {score}\nWins: {wins}\nLosses: {loss}")
