@@ -127,7 +127,7 @@ def lobby():
         input("Press Enter to Return to Menu\n")
         loading()
         lobby()
-    #user choices through input, b begins game, m sends to main menu, s shows player wins,loss, and score
+    #user choices through input, b begins game,  s shows player wins,loss, and score
     else:
         clear()
         print("Invalid Input; Returning to menu")
