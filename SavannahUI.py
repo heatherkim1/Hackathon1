@@ -1,6 +1,5 @@
 
-main_menu = input("Welcome to our Hackathon project. What would you like to do?(View games, View records, or View game history. Note: please type as you see here.) ")
-
+main_menu = input("Welcome to our Hackathon project. What would you like to do?(View games, View records, or View game history logs. Note: please type as you see here.)")
 if main_menu == 'View games':
     print("Connections: ")
     print("Wordle: ")
@@ -41,3 +40,5 @@ if main_menu == 'View game history':
         with open('XOHistory.txt','r') as xo_his:
             read_his = xo_his.read()
             print(read_his)
+
+
