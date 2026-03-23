@@ -17,6 +17,14 @@ if main_menu == 'View records':
         with open('XORecords.txt','r') as rec:
             rec_read = rec.read()
             print(rec_read)
+    if which_rec == 'Bloons':
+        with open('BloonsRecords.txt','r') as rec:
+            rec_read = rec.read()
+            print(rec_read)
+    if which_rec == 'Connections':
+        with open ('ConnectionsRecords.txt') as rec:
+            rec_read = rec.read()
+            print(rec_read)
 
 if main_menu == 'View game history':
     which_his = input('Would you like to view full history or single game history? (If you would like to view a single game please type the games name and history after.)')
