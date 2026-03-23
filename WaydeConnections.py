@@ -72,12 +72,14 @@ def connections():
             print("You must enter 4 words!")
             print("Press Enter to try Again")
             input()
+            continue
             #causes the player to reenter if they do not enter 4 words initailly.
             
         if not all(word in board for word in guess):
             print("Invalid words entered!")
             print("Press Enter to try Again")
             input()
+            continue
             #causes the player to reenter if inputted words are not in the given word set
             
         group = [choice[word] for word in guess]
