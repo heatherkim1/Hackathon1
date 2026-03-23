@@ -1,3 +1,7 @@
+#Wayde West
+#Period 6
+#Connections
+
 import random, os, time
 score = 0
 wins = 0
