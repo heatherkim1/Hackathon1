@@ -1,0 +1,129 @@
+# Delylah's Brick Breaker
+
+import pygame
+import random
+import sys
+
+pygame.init()
+
+# Configs
+WIDTH, HEIGHT = 900, 900
+screen = pygame.display.set_mode([WIDTH, HEIGHT])
+pygame.display.set_caption("Brick Breaker")
+timer = pygame.time.Clock()
+fps = 60
+
+# Colors
+white, black, gray = (255, 255, 255), (0, 0, 0), (16, 16, 16)
+red, green, blue, orange = (210, 4, 45), (119, 221, 119), (65, 105, 225), (255, 195, 108)
+colors = [red, orange, green, blue, (120, 81, 169)]
+
+# Fonts
+font = pygame.font.Font('freesansbold.ttf', 30)
+title_font = pygame.font.Font('freesansbold.ttf', 70)
+
+# Game Options
+# 0: Menu, 1: Playing, 2: Leaderboard
+game_state = 0 
+score = 0
+high_scores = [0, 0, 0, 0, 0] # Top 5 local scores
+player_x = 350
+player_direction = 0
+ball_x, ball_y = WIDTH // 2, HEIGHT - 60
+ball_x_direction, ball_y_direction = 0, 0
+ball_speed = 5
+board = []
+create_new = True
+
+def create_new_board():
+    new_board = []
+    rows = random.randint(5, 8)
+    for i in range(rows):
+        new_board.append([random.randint(1, 5) for _ in range(10)])
+    return new_board
+
+def draw_board(board):
+    squares = []
+    block_width = WIDTH // 10
+    block_height = 40
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            if board[i][j] > 0:
+                rect = pygame.Rect(j * block_width, (i * block_height) + 60, block_width - 2, block_height - 2)
+                pygame.draw.rect(screen, colors[board[i][j]-1], rect, 0, 3)
+                squares.append([rect, (i, j)])
+    return squares
+
+def update_scores(new_score):
+    high_scores.append(new_score)
+    high_scores.sort(reverse=True)
+    del high_scores[5:]
+
+# --- Main Loop ---
+run = True
+while run:
+    screen.fill(gray)
+    timer.tick(fps)
+    mouse_pos = pygame.mouse.get_pos()
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+        
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if game_state == 0:
+                if play_btn.collidepoint(mouse_pos):
+                    game_state, score, create_new = 1, 0, True
+                    ball_x_direction, ball_y_direction = random.choice([-1, 1]), -1
+                if leader_btn.collidepoint(mouse_pos): game_state = 2
+                if quit_btn.collidepoint(mouse_pos): run = False
+            elif game_state == 2:
+                if back_btn.collidepoint(mouse_pos): game_state = 0
+
+        if event.type == pygame.KEYDOWN and game_state == 1:
+            if event.key == pygame.K_RIGHT: player_direction = 1
+            if event.key == pygame.K_LEFT: player_direction = -1
+        if event.type == pygame.KEYUP and game_state == 1:
+            if event.key in [pygame.K_RIGHT, pygame.K_LEFT]: player_direction = 0
+
+    if game_state == 0: # Title Screen
+        title = title_font.render("BRICK BREAKER", True, white)
+        screen.blit(title, (WIDTH//2 - 270, 200))
+        play_btn = pygame.draw.rect(screen, green, [WIDTH//2 - 100, 400, 200, 50], 0, 5)
+        leader_btn = pygame.draw.rect(screen, blue, [WIDTH//2 - 100, 470, 200, 50], 0, 5)
+        quit_btn = pygame.draw.rect(screen, red, [WIDTH//2 - 100, 540, 200, 50], 0, 5)
+        screen.blit(font.render("PLAY", True, black), (WIDTH//2 - 40, 410))
+        screen.blit(font.render("SCORES", True, black), (WIDTH//2 - 60, 480))
+        screen.blit(font.render("QUIT", True, black), (WIDTH//2 - 40, 550))
+
+    elif game_state == 1: # Game physics
+        if create_new: board, create_new = create_new_board(), False
+        squares = draw_board(board)
+        player = pygame.draw.rect(screen, white, [player_x, HEIGHT - 30, 200, 25], 0, 3)
+        ball = pygame.draw.circle(screen, white, (int(ball_x), int(ball_y)), 12)
+        
+        ball_x += ball_x_direction * ball_speed
+        ball_y += ball_y_direction * ball_speed
+        player_x = max(0, min(WIDTH - 200, player_x + player_direction * 8))
+
+        if ball_x <= 12 or ball_x >= WIDTH - 12: ball_x_direction *= -1
+        if ball_y <= 60: ball_y_direction *= -1
+        if ball.colliderect(player): ball_y_direction = -1
+        for s in squares:
+            if ball.colliderect(s[0]):
+                ball_y_direction *= -1
+                board[s[1][0]][s[1][1]] -= 1
+                score += 10
+                break
+        if ball_y > HEIGHT: update_scores(score); game_state = 0
+        screen.blit(font.render(f"Score: {score}", True, white), (20, 15))
+
+    elif game_state == 2: # Leaderboard
+        screen.blit(title_font.render("TOP 5", True, orange), (WIDTH//2 - 100, 150))
+        for i, s in enumerate(high_scores):
+            screen.blit(font.render(f"{i+1}. {s}", True, white), (WIDTH//2 - 40, 300 + i*50))
+        back_btn = pygame.draw.rect(screen, gray, [WIDTH//2 - 100, 650, 200, 50], 2, 5)
+        screen.blit(font.render("BACK", True, white), (WIDTH//2 - 40, 660))
+
+    pygame.display.flip()
+pygame.quit()
